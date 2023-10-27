@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box11{position: relative; left:0px; top:0px; display:none; z-index:2;opacity:.3;}
+        .box11.on{display:block; left: 90px;top: -123px;}
+        .btn11{position: relative; top:100px}
+        .btn44{position: relative; top:200px}
+    </style>
+</head>
+<body>
+    <p>333</p>
+    <script>
+        document.write("<div style='display:flex;align-items:center;justify-content: center;width:100%;height:100vh; background:rgba(0,0,0,.3);position:fixed; top:0;z-index:1'><div id='mydiv' style='position:fixed;z-index:4;'><" + "div style='background:blue; width:100px; height:100px; position:relative; z-index:3'>" + "<" + "/div><button class='btn11'>22</button><button class='btn44'>44</button><div style='width:600px; height:100px; background:red' class='box11'>11</div></div></div>");
+
+let drag     = new Object();
+drag.obj = document.getElementById('mydiv');
+
+drag.obj.addEventListener('mousedown', function(e)
+{
+    drag.top  = parseInt(drag.obj.offsetTop);
+    drag.left = parseInt(drag.obj.offsetLeft);
+    drag.oldx = drag.x;
+    drag.oldy = drag.y;
+    drag.drag = true;
+});
+
+window.addEventListener('mouseup', function()
+{
+    drag.drag = false;
+});
+
+window.addEventListener('mousemove', function(e)
+{
+    drag.x    = e.clientX;
+    drag.y    = e.clientY;
+    var diffw = drag.x - drag.oldx;
+    var diffh = drag.y - drag.oldy;
+
+    if (drag.drag)
+    {
+        drag.obj.style.left = drag.left + diffw + 'px';
+        drag.obj.style.top  = drag.top  + diffh + 'px';
+        e.preventDefault();
+    }
+});
+
+let btn11 = document.querySelector('.btn11');
+let btn44 = document.querySelector('.btn44');
+let div22 = document.querySelector('.box11');
+    btn11.addEventListener('click', ()=> {
+        div22.classList.add('on');
+    })
+    btn44.addEventListener('click', ()=> {
+        div22.classList.remove('on');
+    })
+
+    </script>
+</body>
+</html>
